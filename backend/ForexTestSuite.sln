@@ -1,0 +1,53 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{A1B2C3D4-E5F6-7890-ABCD-123456789ABC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{B1C2D3E4-F5G6-7890-BCDE-234567890BCD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexTestSuite.Api", "src\ForexTestSuite.Api\ForexTestSuite.Api.csproj", "{C1D2E3F4-G5H6-7890-CDEF-345678901CDE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexTestSuite.Application", "src\ForexTestSuite.Application\ForexTestSuite.Application.csproj", "{D1E2F3G4-H5I6-7890-DEFG-456789012DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexTestSuite.Domain", "src\ForexTestSuite.Domain\ForexTestSuite.Domain.csproj", "{E1F2G3H4-I5J6-7890-EFGH-567890123EFG}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexTestSuite.Infrastructure", "src\ForexTestSuite.Infrastructure\ForexTestSuite.Infrastructure.csproj", "{F1G2H3I4-J5K6-7890-FGHI-678901234FGH}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ForexTestSuite.Api.Tests", "tests\ForexTestSuite.Api.Tests\ForexTestSuite.Api.Tests.csproj", "{G1H2I3J4-K5L6-7890-GHIJ-789012345GHI}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C1D2E3F4-G5H6-7890-CDEF-345678901CDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C1D2E3F4-G5H6-7890-CDEF-345678901CDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C1D2E3F4-G5H6-7890-CDEF-345678901CDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C1D2E3F4-G5H6-7890-CDEF-345678901CDE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1E2F3G4-H5I6-7890-DEFG-456789012DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1E2F3G4-H5I6-7890-DEFG-456789012DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1E2F3G4-H5I6-7890-DEFG-456789012DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1E2F3G4-H5I6-7890-DEFG-456789012DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E1F2G3H4-I5J6-7890-EFGH-567890123EFG}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E1F2G3H4-I5J6-7890-EFGH-567890123EFG}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E1F2G3H4-I5J6-7890-EFGH-567890123EFG}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E1F2G3H4-I5J6-7890-EFGH-567890123EFG}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F1G2H3I4-J5K6-7890-FGHI-678901234FGH}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1G2H3I4-J5K6-7890-FGHI-678901234FGH}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1G2H3I4-J5K6-7890-FGHI-678901234FGH}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1G2H3I4-J5K6-7890-FGHI-678901234FGH}.Release|Any CPU.Build.0 = Release|Any CPU
+		{G1H2I3J4-K5L6-7890-GHIJ-789012345GHI}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{G1H2I3J4-K5L6-7890-GHIJ-789012345GHI}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{G1H2I3J4-K5L6-7890-GHIJ-789012345GHI}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{G1H2I3J4-K5L6-7890-GHIJ-789012345GHI}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C1D2E3F4-G5H6-7890-CDEF-345678901CDE} = {A1B2C3D4-E5F6-7890-ABCD-123456789ABC}
+		{D1E2F3G4-H5I6-7890-DEFG-456789012DEF} = {A1B2C3D4-E5F6-7890-ABCD-123456789ABC}
+		{E1F2G3H4-I5J6-7890-EFGH-567890123EFG} = {A1B2C3D4-E5F6-7890-ABCD-123456789ABC}
+		{F1G2H3I4-J5K6-7890-FGHI-678901234FGH} = {A1B2C3D4-E5F6-7890-ABCD-123456789ABC}
+		{G1H2I3J4-K5L6-7890-GHIJ-789012345GHI} = {B1C2D3E4-F5G6-7890-BCDE-234567890BCD}
+	EndGlobalSection
+EndGlobal
