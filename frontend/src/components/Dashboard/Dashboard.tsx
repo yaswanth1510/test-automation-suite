@@ -1,32 +1,28 @@
 import React, { useEffect } from 'react';
-import { 
-  Grid, 
-  Paper, 
-  Typography, 
-  Box, 
-  Card, 
-  CardContent, 
-  CardActions,
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import ErrorIcon from '@mui/icons-material/Error';
+import {
+  Grid,
+  Paper,
+  Typography,
+  Box,
+  Card,
+  CardContent,
   Button,
   Chip,
   LinearProgress,
   Alert,
   Fade
 } from '@mui/material';
-import {
-  PlayArrow as PlayIcon,
-  Stop as StopIcon,
-  Assessment as ReportIcon,
-  TrendingUp as TrendingUpIcon,
-  Warning as WarningIcon,
-  CheckCircle as SuccessIcon,
-  Error as ErrorIcon,
-  Schedule as ScheduleIcon
-} from '@mui/icons-material';
+import PlayIcon from '@mui/icons-material/PlayArrow';
+import StopIcon from '@mui/icons-material/Stop';
+import ReportIcon from '@mui/icons-material/Assessment';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import WarningIcon from '@mui/icons-material/Warning';
+import ScheduleIcon from '@mui/icons-material/Schedule';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 import { fetchTestSuites } from '../../store/slices/testSuitesSlice';
-import { Line } from 'react-chartjs-2';
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -37,6 +33,7 @@ import {
   Tooltip,
   Legend,
 } from 'chart.js';
+import { Line } from 'react-chartjs-2';
 
 // Register Chart.js components
 ChartJS.register(
@@ -53,7 +50,7 @@ const Dashboard: React.FC = () => {
   const dispatch = useDispatch();
   const { testSuites, isLoading, error } = useSelector((state: RootState) => state.testSuites);
   const { executionResults, liveExecutions } = useSelector((state: RootState) => state.testExecution);
-  const { notifications, unreadCount } = useSelector((state: RootState) => state.notifications);
+  const { unreadCount } = useSelector((state: RootState) => state.notifications);
   const { isConnected } = useSelector((state: RootState) => ({
     isConnected: true // This should come from SignalR context
   }));
@@ -128,12 +125,12 @@ const Dashboard: React.FC = () => {
 
       {/* Connection Status */}
       <Box sx={{ mb: 3 }}>
-        <Chip 
-          icon={isConnected ? <CheckCircle /> : <ErrorIcon />}
-          label={`SignalR: ${isConnected ? 'Connected' : 'Disconnected'}`}
-          color={isConnected ? 'success' : 'error'}
-          variant="outlined"
-        />
+      <Chip
+        icon={isConnected ? <CheckCircleIcon fontSize="small" /> : <ErrorIcon fontSize="small" />}
+        label={`SignalR: ${isConnected ? 'Connected' : 'Disconnected'}`}
+        color={isConnected ? 'success' : 'error'}
+        variant="outlined"
+      />
       </Box>
 
       {/* Statistics Cards */}

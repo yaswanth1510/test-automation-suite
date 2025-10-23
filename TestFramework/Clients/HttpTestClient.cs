@@ -17,8 +17,7 @@ public class HttpTestClient
     {
         var options = new RestClientOptions(baseUrl)
         {
-            ThrowOnAnyError = false,
-            Timeout = TimeSpan.FromSeconds(30)
+            ThrowOnAnyError = false
         };
         
         _client = new RestClient(options);
@@ -216,9 +215,9 @@ public class HttpTestClient
     {
         if (parameters == null) return;
 
-        foreach (var param in parameters)
+        foreach (var parameter in parameters)
         {
-            request.AddParameter(param.Key, param.Value);
+            request.AddParameter(parameter.Key, parameter.Value, ParameterType.GetOrPost);
         }
     }
 

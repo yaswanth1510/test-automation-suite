@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "ForexTestSuite.Api": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:54181;http://localhost:54182"
+    }
+  }
+}

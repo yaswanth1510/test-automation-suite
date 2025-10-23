@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using ForexTestFramework.Core;
 using ForexTestFramework.Clients;
 using ForexTestFramework.Modules;
+using Microsoft.Extensions.Logging.Console;
 
 namespace ForexTestFramework.Tests;
 
@@ -13,7 +14,7 @@ namespace ForexTestFramework.Tests;
 [TestFixture]
 public class SampleForexTradingTests
 {
-    private IServiceProvider _serviceProvider = null!;
+    private ServiceProvider _serviceProvider = null!;
     private ILogger<SampleForexTradingTests> _logger = null!;
     private ForexTradingTestModule _tradingModule = null!;
 
@@ -23,8 +24,11 @@ public class SampleForexTradingTests
         // Setup dependency injection
         var services = new ServiceCollection();
         
-        // Add logging
-        services.AddLogging(builder => builder.AddConsole().AddDebug());
+        // Add basic logging
+        services.AddLogging(builder =>
+        {
+            builder.AddConsole();
+        });
         
         // Add HTTP clients
         services.AddScoped<HttpTestClient>(provider => 
@@ -61,7 +65,10 @@ public class SampleForexTradingTests
     [OneTimeTearDown]
     public void OneTimeTearDown()
     {
-        _serviceProvider?.Dispose();
+        if (_serviceProvider is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 
     [Test, Category("Sample")]
@@ -262,7 +269,10 @@ public class SamplePerformanceTests
     public async Task ConcurrentParameterGenerationTest()
     {
         var serviceProvider = new ServiceCollection()
-            .AddLogging(builder => builder.AddConsole())
+            .AddLogging(builder =>
+            {
+                builder.AddConsole();
+            })
             .AddScoped<ForexParameterGenerator>()
             .BuildServiceProvider();
 
@@ -296,5 +306,10 @@ public class SamplePerformanceTests
             $"Parameter generation took {stopwatch.ElapsedMilliseconds}ms, expected < 5000ms");
 
         Console.WriteLine($"Generated 1000 parameter sets in {stopwatch.ElapsedMilliseconds}ms");
+        
+        if (serviceProvider is IDisposable disposable)
+        {
+            disposable.Dispose();
+        }
     }
 }

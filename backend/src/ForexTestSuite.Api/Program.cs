@@ -11,6 +11,8 @@ using ForexTestSuite.Domain.Interfaces;
 using ForexTestSuite.Infrastructure.Data;
 using ForexTestSuite.Application.Services;
 using ForexTestSuite.Api.Hubs;
+using Hangfire.Dashboard;
+using Microsoft.Extensions.Caching.StackExchangeRedis;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -106,8 +108,8 @@ builder.Services.AddCors(options =>
 
 // Add health checks
 builder.Services.AddHealthChecks()
-    .AddDbContext<ForexTestSuiteDbContext>()
-    .AddRedis(builder.Configuration.GetConnectionString("Redis") ?? "localhost:6379");
+    .AddDbContextCheck<ForexTestSuiteDbContext>()
+    .AddRedis(builder.Configuration.GetConnectionString("Redis") ?? "localhost:6379", name: "redis");
 
 var app = builder.Build();
 

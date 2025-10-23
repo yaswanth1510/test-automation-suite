@@ -1,4 +1,5 @@
 using ForexTestSuite.Domain.Entities;
+using ForexTestSuite.Domain.Enums;
 using System.Linq.Expressions;
 
 namespace ForexTestSuite.Domain.Interfaces;

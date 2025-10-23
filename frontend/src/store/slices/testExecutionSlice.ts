@@ -68,7 +68,7 @@ const testExecutionSlice = createSlice({
       }
     },
     addLiveExecution: (state, action: PayloadAction<string>) => {
-      state.liveExecutions = new Set([...state.liveExecutions, action.payload]);
+      state.liveExecutions = new Set([...Array.from(state.liveExecutions), action.payload]);
     },
     removeLiveExecution: (state, action: PayloadAction<string>) => {
       const newSet = new Set(state.liveExecutions);
@@ -89,7 +89,7 @@ const testExecutionSlice = createSlice({
       .addCase(executeTest.fulfilled, (state, action) => {
         state.isLoading = false;
         state.executionResults[action.payload.executionId] = action.payload;
-        state.liveExecutions = new Set([...state.liveExecutions, action.payload.executionId]);
+        state.liveExecutions = new Set([...Array.from(state.liveExecutions), action.payload.executionId]);
       })
       .addCase(executeTest.rejected, (state, action) => {
         state.isLoading = false;
@@ -104,7 +104,7 @@ const testExecutionSlice = createSlice({
         state.isLoading = false;
         action.payload.forEach(result => {
           state.executionResults[result.executionId] = result;
-          state.liveExecutions = new Set([...state.liveExecutions, result.executionId]);
+          state.liveExecutions = new Set([...Array.from(state.liveExecutions), result.executionId]);
         });
       })
       .addCase(executeTestSuite.rejected, (state, action) => {

@@ -81,6 +81,138 @@ public class ForexTestSuiteDbContext : DbContext
                 v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
                 v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, string>());
 
+        modelBuilder.Entity<ComplianceTest>()
+            .Property(e => e.ExpectedResults)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<ComplianceTest>()
+            .Property(e => e.TestData)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<ComplianceTest>()
+            .Property(e => e.ValidationCriteria)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<FinancialCalculationTest>()
+            .Property(e => e.CalculationParameters)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<MarketDataSimulation>()
+            .Property(e => e.PriceMovements)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<MarketDataSimulation>()
+            .Property(e => e.NewsEvents)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<RiskManagementTest>()
+            .Property(e => e.RiskRules)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<RiskManagementTest>()
+            .Property(e => e.ExpectedOutcomes)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<TestAsset>()
+            .Property(e => e.Metadata)
+            .HasConversion(
+            v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+            v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        // TestReport JSON properties
+        modelBuilder.Entity<TestReport>()
+            .Property(e => e.Statistics)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<TestReport>()
+            .Property(e => e.Metadata)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        // TestConfiguration JSON properties
+        modelBuilder.Entity<TestConfiguration>()
+            .Property(e => e.Settings)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+        modelBuilder.Entity<TestConfiguration>()
+            .Property(e => e.BrowserSettings)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+        modelBuilder.Entity<TestConfiguration>()
+            .Property(e => e.ApiSettings)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+        modelBuilder.Entity<TestConfiguration>()
+            .Property(e => e.DatabaseSettings)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        modelBuilder.Entity<TestConfiguration>()
+            .Property(e => e.ConnectionStrings)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, string>());
+
+        // TestStep JSON properties
+        modelBuilder.Entity<TestStep>()
+            .Property(e => e.Parameters)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+        modelBuilder.Entity<TestStep>()
+            .Property(e => e.ExpectedResults)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        // TestStepExecution JSON properties
+        modelBuilder.Entity<TestStepExecution>()
+            .Property(e => e.ActualResults)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
+        // TestSession JSON properties
+        modelBuilder.Entity<TestSession>()
+            .Property(e => e.Configuration)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+        modelBuilder.Entity<TestSession>()
+            .Property(e => e.Environment)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, string>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, string>());
+
+        modelBuilder.Entity<TradingOrderTest>()
+            .Property(e => e.ValidationRules)
+            .HasConversion(
+                v => JsonSerializer.Serialize(v, (JsonSerializerOptions?)null),
+                v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
+
         // Continue with other entities...
         ConfigureTestExecutionJsonProperties(modelBuilder);
         ConfigureConfigurationJsonProperties(modelBuilder);

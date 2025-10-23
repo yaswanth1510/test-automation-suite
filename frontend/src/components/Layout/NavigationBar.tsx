@@ -20,7 +20,7 @@ import {
   Settings as SettingsIcon,
   DarkMode as DarkModeIcon,
   LightMode as LightModeIcon,
-  Account as AccountIcon
+  AccountCircle as AccountIcon
 } from '@mui/icons-material';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
@@ -30,7 +30,7 @@ import { toggleNotificationPanel } from '../../store/slices/notificationsSlice';
 const NavigationBar: React.FC = () => {
   const dispatch = useDispatch();
   const { unreadCount } = useSelector((state: RootState) => state.notifications);
-  const { theme, sidebarOpen } = useSelector((state: RootState) => state.ui);
+  const { theme } = useSelector((state: RootState) => state.ui);
   
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 

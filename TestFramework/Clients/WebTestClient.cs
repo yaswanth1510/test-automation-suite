@@ -130,16 +130,9 @@ public class WebTestClient
     {
         return await ExecuteActionAsync("Click", selector, async () =>
         {
-            var element = await _currentPage!.WaitForSelectorAsync(selector, new PageWaitForSelectorOptions
-            {
-                Timeout = options?.Timeout ?? _options.DefaultTimeout,
-                State = WaitForSelectorState.Visible
-            });
-
-            if (element == null)
-                throw new Exception($"Element not found: {selector}");
-
-            await element.ClickAsync(new LocatorClickOptions
+            var locator = _currentPage!.Locator(selector);
+            
+            await locator.ClickAsync(new LocatorClickOptions
             {
                 Force = options?.Force ?? false,
                 Timeout = options?.Timeout ?? _options.DefaultTimeout
@@ -156,19 +149,14 @@ public class WebTestClient
     {
         return await ExecuteActionAsync("Type", selector, async () =>
         {
-            var element = await _currentPage!.WaitForSelectorAsync(selector, new PageWaitForSelectorOptions
-            {
-                Timeout = options?.Timeout ?? _options.DefaultTimeout,
-                State = WaitForSelectorState.Visible
-            });
-
-            if (element == null)
-                throw new Exception($"Element not found: {selector}");
+            var locator = _currentPage!.Locator(selector);
 
             if (options?.Clear ?? false)
-                await element.ClearAsync();
+            {
+                await locator.FillAsync("");
+            }
 
-            await element.TypeAsync(text, new LocatorTypeOptions
+            await locator.TypeAsync(text, new LocatorTypeOptions
             {
                 Delay = options?.TypeDelay ?? 0,
                 Timeout = options?.Timeout ?? _options.DefaultTimeout
@@ -185,16 +173,14 @@ public class WebTestClient
     {
         var result = await ExecuteActionAsync("GetText", selector, async () =>
         {
-            var element = await _currentPage!.WaitForSelectorAsync(selector, new PageWaitForSelectorOptions
+            var locator = _currentPage!.Locator(selector);
+            await locator.WaitForAsync(new LocatorWaitForOptions
             {
                 Timeout = options?.Timeout ?? _options.DefaultTimeout,
                 State = WaitForSelectorState.Attached
             });
 
-            if (element == null)
-                throw new Exception($"Element not found: {selector}");
-
-            return await element.TextContentAsync() ?? string.Empty;
+            return await locator.TextContentAsync() ?? string.Empty;
         });
 
         return new WebActionResult<string>
@@ -216,13 +202,14 @@ public class WebTestClient
     {
         return await ExecuteActionAsync("WaitForElement", selector, async () =>
         {
-            var element = await _currentPage!.WaitForSelectorAsync(selector, new PageWaitForSelectorOptions
+            var locator = _currentPage!.Locator(selector);
+            await locator.WaitForAsync(new LocatorWaitForOptions
             {
                 Timeout = options?.Timeout ?? _options.DefaultTimeout,
                 State = WaitForSelectorState.Visible
             });
 
-            return element != null ? "Element is visible" : "Element not found";
+            return "Element is visible";
         });
     }
 
