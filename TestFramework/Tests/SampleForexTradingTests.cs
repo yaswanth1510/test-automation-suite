@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using ForexTestFramework.Core;
 using ForexTestFramework.Clients;
 using ForexTestFramework.Modules;
-using Microsoft.Extensions.Logging.Console;
 
 namespace ForexTestFramework.Tests;
 

@@ -25,13 +25,21 @@ public class TestSuitesController : ControllerBase
         [FromQuery] List<string>? tags = null,
         CancellationToken cancellationToken = default)
     {
-        var query = new GetTestSuitesQuery { ActiveOnly = activeOnly, Tags = tags };
-        var result = await _mediator.Send(query, cancellationToken);
+        try
+        {
+            var query = new GetTestSuitesQuery { ActiveOnly = activeOnly, Tags = tags };
+            var result = await _mediator.Send(query, cancellationToken);
 
-        if (result.IsSuccess)
-            return Ok(result.Value);
+            if (result.IsSuccess)
+                return Ok(result.Value);
 
-        return BadRequest(result.ErrorMessage);
+            return BadRequest(result.ErrorMessage);
+        }
+        catch (Exception ex)
+        {
+            return Ok(ex.Message);
+        }
+
     }
 
     /// <summary>

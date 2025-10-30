@@ -1,18 +1,19 @@
-using Microsoft.EntityFrameworkCore;
-using Microsoft.OpenApi.Models;
-using System.Reflection;
-using Serilog;
-using Hangfire;
-using Hangfire.SqlServer;
 using FluentValidation;
-using MediatR;
-using ForexTestSuite.Infrastructure.Data.Context;
+using ForexTestSuite.Api.Hubs;
+using ForexTestSuite.Application.Features.TestSuites.Queries;
+using ForexTestSuite.Application.Services;
 using ForexTestSuite.Domain.Interfaces;
 using ForexTestSuite.Infrastructure.Data;
-using ForexTestSuite.Application.Services;
-using ForexTestSuite.Api.Hubs;
+using ForexTestSuite.Infrastructure.Data.Context;
+using Hangfire;
 using Hangfire.Dashboard;
+using Hangfire.SqlServer;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.StackExchangeRedis;
+using Microsoft.OpenApi.Models;
+using Serilog;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,7 +35,11 @@ builder.Services.AddDbContext<ForexTestSuiteDbContext>(options =>
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
 
 // Add MediatR
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(GetTestSuitesQuery).Assembly); // Application assembly
+    cfg.RegisterServicesFromAssembly(typeof(Program).Assembly); // Api assembly
+});
 
 // Add FluentValidation
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());

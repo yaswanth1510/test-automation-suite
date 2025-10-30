@@ -63,7 +63,14 @@ const Dashboard: React.FC = () => {
   const totalTestSuites = testSuites.length;
   const activeTestSuites = testSuites.filter(ts => ts.isActive).length;
   const totalTestCases = testSuites.reduce((acc, ts) => acc + (ts.testCases?.length || 0), 0);
-  const runningExecutions = liveExecutions.size;
+  const runningExecutions = (() => {
+    if (!liveExecutions) return 0;
+    if (Array.isArray(liveExecutions)) return liveExecutions.length;
+    // handle Map/Set or other collections with a size property, or a numeric value
+    if (typeof (liveExecutions as any).size === 'number') return (liveExecutions as any).size;
+    if (typeof liveExecutions === 'number') return liveExecutions;
+    return 0;
+  })();
 
   // Recent executions
   const recentExecutions = Object.values(executionResults).slice(0, 5);

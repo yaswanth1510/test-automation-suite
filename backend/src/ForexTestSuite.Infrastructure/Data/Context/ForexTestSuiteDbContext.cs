@@ -270,6 +270,7 @@ public class ForexTestSuiteDbContext : DbContext
                 v => JsonSerializer.Deserialize<Dictionary<string, object>>(v, (JsonSerializerOptions?)null) ?? new Dictionary<string, object>());
     }
 
+
     private static void ConfigureRelationships(ModelBuilder modelBuilder)
     {
         // TestSuite -> TestCase (One-to-Many)
@@ -286,7 +287,41 @@ public class ForexTestSuiteDbContext : DbContext
             .HasForeignKey(ts => ts.TestCaseId)
             .OnDelete(DeleteBehavior.Cascade);
 
-        // Other relationships...
+        // TestCase -> TestExecution (One-to-Many)
+        modelBuilder.Entity<TestExecution>()
+            .HasOne(te => te.TestCase)
+            .WithMany(tc => tc.TestExecutions)
+            .HasForeignKey(te => te.TestCaseId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // TestStep -> TestStepExecution (One-to-Many)
+        // Changed to NoAction to prevent cascade cycle
+        modelBuilder.Entity<TestStepExecution>()
+            .HasOne(tse => tse.TestStep)
+            .WithMany(ts => ts.TestStepExecutions)
+            .HasForeignKey(tse => tse.TestStepId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // TestExecution -> TestStepExecution (One-to-Many)
+        modelBuilder.Entity<TestStepExecution>()
+            .HasOne(tse => tse.TestExecution)
+            .WithMany(te => te.TestStepExecutions)
+            .HasForeignKey(tse => tse.TestExecutionId)
+            .OnDelete(DeleteBehavior.Cascade);
+
+        // TestSuite -> TestExecution (One-to-Many)
+        modelBuilder.Entity<TestExecution>()
+            .HasOne(te => te.TestSuite)
+            .WithMany(ts => ts.TestExecutions)
+            .HasForeignKey(te => te.TestSuiteId)
+            .OnDelete(DeleteBehavior.NoAction);
+
+        // TestSession relationships
+        modelBuilder.Entity<TestExecution>()
+            .HasOne(te => te.TestSession)
+            .WithMany(ts => ts.TestExecutions)
+            .HasForeignKey(te => te.TestSessionId)
+            .OnDelete(DeleteBehavior.SetNull);
     }
 
     private static void ConfigureIndexes(ModelBuilder modelBuilder)

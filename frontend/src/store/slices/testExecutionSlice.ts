@@ -6,14 +6,14 @@ interface TestExecutionState extends LoadingState {
   executions: TestExecution[];
   currentExecution?: TestExecution;
   executionResults: Record<string, TestExecutionResult>;
-  liveExecutions: Set<string>;
+  liveExecutions: string[];
 }
 
 const initialState: TestExecutionState = {
   executions: [],
   currentExecution: undefined,
   executionResults: {},
-  liveExecutions: new Set(),
+  liveExecutions: [],
   isLoading: false,
   error: undefined,
 };
@@ -68,12 +68,13 @@ const testExecutionSlice = createSlice({
       }
     },
     addLiveExecution: (state, action: PayloadAction<string>) => {
-      state.liveExecutions = new Set([...Array.from(state.liveExecutions), action.payload]);
+      // Check if execution ID already exists to prevent duplicates
+      if (!state.liveExecutions.includes(action.payload)) {
+        state.liveExecutions.push(action.payload);
+      }
     },
     removeLiveExecution: (state, action: PayloadAction<string>) => {
-      const newSet = new Set(state.liveExecutions);
-      newSet.delete(action.payload);
-      state.liveExecutions = newSet;
+      state.liveExecutions = state.liveExecutions.filter(id => id !== action.payload);
     },
     clearError: (state) => {
       state.error = undefined;
@@ -89,7 +90,10 @@ const testExecutionSlice = createSlice({
       .addCase(executeTest.fulfilled, (state, action) => {
         state.isLoading = false;
         state.executionResults[action.payload.executionId] = action.payload;
-        state.liveExecutions = new Set([...Array.from(state.liveExecutions), action.payload.executionId]);
+        // Check if execution ID already exists to prevent duplicates
+        if (!state.liveExecutions.includes(action.payload.executionId)) {
+          state.liveExecutions.push(action.payload.executionId);
+        }
       })
       .addCase(executeTest.rejected, (state, action) => {
         state.isLoading = false;
@@ -102,10 +106,21 @@ const testExecutionSlice = createSlice({
       })
       .addCase(executeTestSuite.fulfilled, (state, action) => {
         state.isLoading = false;
+        // Collect all execution IDs first
+        const newExecutionIds: string[] = [];
+        
         action.payload.forEach(result => {
           state.executionResults[result.executionId] = result;
-          state.liveExecutions = new Set([...Array.from(state.liveExecutions), result.executionId]);
+          if (!state.liveExecutions.includes(result.executionId) && 
+              !newExecutionIds.includes(result.executionId)) {
+            newExecutionIds.push(result.executionId);
+          }
         });
+        
+        // Add all new execution IDs at once
+        if (newExecutionIds.length > 0) {
+          state.liveExecutions = [...state.liveExecutions, ...newExecutionIds];
+        }
       })
       .addCase(executeTestSuite.rejected, (state, action) => {
         state.isLoading = false;
@@ -132,9 +147,7 @@ const testExecutionSlice = createSlice({
       .addCase(cancelExecution.fulfilled, (state, action) => {
         state.isLoading = false;
         if (action.payload.success) {
-          const newSet = new Set(state.liveExecutions);
-          newSet.delete(action.payload.executionId);
-          state.liveExecutions = newSet;
+          state.liveExecutions = state.liveExecutions.filter(id => id !== action.payload.executionId);
         }
       })
       .addCase(cancelExecution.rejected, (state, action) => {
